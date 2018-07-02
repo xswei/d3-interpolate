@@ -1,6 +1,6 @@
 # d3-interpolate
 
-这个模块提供了在两个值之间多种插值方法。值可能是数值, 颜色, 字符串, 数组甚至是多层嵌套的数组. 例如：
+This module provides a variety of interpolation methods for blending between two values. Values may be numbers, colors, strings, arrays, or even deeply-nested objects. For example:
 
 ```js
 var i = d3.interpolateNumber(10, 20);
@@ -10,15 +10,15 @@ i(0.5); // 15
 i(1.0); // 20
 ```
 
-返回的函数 `i` 被称为 *interpolator*(插值器). 给定一个起始值 *a* 和一个终止值 *b*, 传入一个范围在 [0, 1] 之间的参数 *t* 会返回一个对应的在 *a* 和 *b* 之间的值。插值器通常在 *t* = 0 时候返回 *a*, 并且在 *t* = 1 时返回 *b*.
+The returned function `i` is called an *interpolator*. Given a starting value *a* and an ending value *b*, it takes a parameter *t* in the domain [0, 1] and returns the corresponding interpolated value between *a* and *b*. An interpolator typically returns a value equivalent to *a* at *t* = 0 and a value equivalent to *b* at *t* = 1.
 
-你可以对数值之外的其他值进行插值。比如返回 `steelblue` 和 `brown` 之间感知上处于中点的颜色:
+You can interpolate more than just numbers. To find the perceptual midpoint between steelblue and brown:
 
 ```js
 d3.interpolateLab("steelblue", "brown")(0.5); // "rgb(142, 92, 109)"
 ```
 
-下面是一个更详细的例子说明 [interpolate](#interpolate) 的类型推断:
+Here’s a more elaborate example demonstrating type inference used by [interpolate](#interpolate):
 
 ```js
 var i = d3.interpolate({colors: ["red", "blue"]}, {colors: ["white", "black"]});
@@ -27,7 +27,7 @@ i(0.5); // {colors: ["rgb(255, 128, 128)", "rgb(0, 0, 128)"]}
 i(1.0); // {colors: ["rgb(255, 255, 255)", "rgb(0, 0, 0)"]}
 ```
 
-请注意，通用值插值器不仅会检测嵌套对象和数组，还会检测字符串中嵌入的颜色字符串和数字！
+Note that the generic value interpolator detects not only nested objects and arrays, but also color strings and numbers embedded in strings!
 
 ## Installing
 
