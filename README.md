@@ -31,7 +31,7 @@ i(1.0); // {colors: ["rgb(255, 255, 255)", "rgb(0, 0, 0)"]}
 
 ## Installing
 
-If you use NPM, `npm install d3-interpolate`. Otherwise, download the [latest release](https://github.com/d3/d3-interpolate/releases/latest). You can also load directly from [d3js.org](https://d3js.org), either as a [standalone library](https://d3js.org/d3-interpolate.v1.min.js) or as part of [D3 4.0](https://github.com/d3/d3). AMD, CommonJS, and vanilla environments are supported. In vanilla, a `d3` global is exported:
+`NPM` 安装: `npm install d3-interpolate`. 此外还可以下载 [latest release](https://github.com/d3/d3-interpolate/releases/latest). 你可以直接从 [d3js.org](https://d3js.org) 作为 [standalone library](https://d3js.org/d3-interpolate.v1.min.js) 或作为 [D3 4.0](https://github.com/d3/d3) 的一部分直接引入. 支持 `AMD`, `CommonJS` 以及基本的标签引入形式。如果使用标签引入则会暴露全局 `d3` 变量:
 
 ```html
 <script src="https://d3js.org/d3-color.v1.min.js"></script>
@@ -43,28 +43,28 @@ var interpolate = d3.interpolateRgb("steelblue", "brown");
 </script>
 ```
 
-[Try d3-interpolate in your browser.](https://tonicdev.com/npm/d3-interpolate)
+[在浏览器中测试 `d3-interpolate`.](https://tonicdev.com/npm/d3-interpolate)
 
 ## API Reference
 
 <a name="interpolate" href="#interpolate">#</a> d3.<b>interpolate</b>(<i>a</i>, <i>b</i>)
 
-Returns an interpolator between the two arbitrary values *a* and *b*. The interpolator implementation is based on the type of the end value *b*, using the following algorithm:
+返回一个在两个任意类型值  *a* 和 *b* 之间插值的插值器。插值算法的实现基于终止值 *b* 的类型，使用如下算法:
 
-1. If *b* is null, undefined or a boolean, use the constant *b*.
-2. If *b* is a number, use [interpolateNumber](#interpolateNumber).
-3. If *b* is a [color](https://github.com/d3/d3-color#color) or a string coercible to a color, use [interpolateRgb](#interpolateRgb).
-4. If *b* is a [date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), use [interpolateDate](#interpolateDate).
-5. If *b* is a string, use [interpolateString](#interpolateString).
-6. If *b* is an [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray), use [interpolateArray](#interpolateArray).
-7. If *b* is coercible to a number, use [interpolateNumber](#interpolateNumber).
-8. Use [interpolateObject](#interpolateObject).
+1. 如果 *b* 为 `null`, `undefined` 或者 `boolean`, 则使用常量 *b*.
+2. 如果 *b* 为 `number`, 使用 [interpolateNumber](#interpolateNumber).
+3. 如果 *b* 为 [color](https://github.com/d3/d3-color#color) 或可以转为颜色的字符串, 使用 [interpolateRgb](#interpolateRgb).
+4. 如果 *b* 为 [date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date), 使用 [interpolateDate](#interpolateDate).
+5. 如果 *b* 为 `string`, 使用 [interpolateString](#interpolateString).
+6. 如果 *b* 为 [array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/isArray), 使用 [interpolateArray](#interpolateArray).
+7. 如果 *b* 可以转为 `number`, 使用 [interpolateNumber](#interpolateNumber).
+8. 使用 [interpolateObject](#interpolateObject).
 
-Based on the chosen interpolator, *a* is coerced to the suitable corresponding type.
+基于选中的插值器，*a* 会被强制转为对应的类型.
 
 <a name="interpolateNumber" href="#interpolateNumber">#</a> d3.<b>interpolateNumber</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/number.js "Source")
 
-Returns an interpolator between the two numbers *a* and *b*. The returned interpolator is equivalent to:
+返回一个在两个数值 *a* 和 *b* 之间插值的插值器。返回的插值器等价于:
 
 ```js
 function interpolator(t) {
@@ -72,11 +72,11 @@ function interpolator(t) {
 }
 ```
 
-Caution: avoid interpolating to or from the number zero when the interpolator is used to generate a string. When very small values are stringified, they may be converted to scientific notation, which is an invalid attribute or style property value in older browsers. For example, the number `0.0000001` is converted to the string `"1e-7"`. This is particularly noticeable with interpolating opacity. To avoid scientific notation, start or end the transition at 1e-6: the smallest value that is not stringified in scientific notation.
+警告: 避免以 `0` 作为插值的起点或终点因为可能会生成字符串。当数字非常小的时候会使用科学计数法表示，这种标记可能会被解析为错误的属性或样式值。比如，数值 `0.0000001` 会被转为字符串 `"1e-7"`。这种现象在对不透明度插值时会尤其明显。为避免科学计数法，可以起于或结束于 `1e-6`：科学计数法中没有被字符串化的最小值。
 
 <a name="interpolateRound" href="#interpolateRound">#</a> d3.<b>interpolateRound</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/round.js "Source")
 
-Returns an interpolator between the two numbers *a* and *b*; the interpolator is similar to [interpolateNumber](#interpolateNumber), except it will round the resulting value to the nearest integer.
+返回一个在两个数值 *a* 和 *b* 之间插值的插值器; 这个插值器与 [interpolateNumber](#interpolateNumber) 类似但是会对返回的结果进行四舍五入。.
 
 <a name="interpolateString" href="#interpolateString">#</a> d3.<b>interpolateString</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/string.js "Source")
 
@@ -88,27 +88,27 @@ For example, if *a* is `"300 12px sans-serif"`, and *b* is `"500 36px Comic-Sans
 
 <a name="interpolateDate" href="#interpolateDate">#</a> d3.<b>interpolateDate</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/date.js "Source")
 
-Returns an interpolator between the two [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) *a* and *b*.
+返回一个在两个 [dates](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) *a* 和 *b* 之间插值的插值器;
 
-Note: **no defensive copy** of the returned date is created; the same Date instance is returned for every evaluation of the interpolator. No copy is made for performance reasons; interpolators are often part of the inner loop of [animated transitions](https://github.com/d3/d3-transition).
+注意: 返回的日期在创建时 **no defensive copy(没有防御式拷贝)**; 插值器在每次计算时都返回同一个实例(例如: `interpolator(0.1) === interpolator(0.5)` is `true`)。没有拷贝是处于性能方面的考虑; 插值器通常用是 [animated transitions](https://github.com/d3/d3-transition) 内循环的一部分。
 
 <a name="interpolateArray" href="#interpolateArray">#</a> d3.<b>interpolateArray</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/array.js "Source")
 
-Returns an interpolator between the two arrays *a* and *b*. Internally, an array template is created that is the same length in *b*. For each element in *b*, if there exists a corresponding element in *a*, a generic interpolator is created for the two elements using [interpolate](#interpolate). If there is no such element, the static value from *b* is used in the template. Then, for the given parameter *t*, the template’s embedded interpolators are evaluated. The updated array template is then returned.
+返回一个在两个数组 *a* 和 *b* 之间插值的插值器。在内部，会创建一个与数组 *b* 等长的临时数组模板。对于数组 *b* 的每一个元素，如果在 *a* 中也存在则会在这两个元素之间使用一个通用的 [interpolate](#interpolate)。如果 *a* 中没有对应的元素, 则这个值会被当为静态值放到临时数组模板中。然后根据指定的参数 *t*, 计算出临时数组模板中每一个元素的值最后返回。
 
-For example, if *a* is the array `[0, 1]` and *b* is the array `[1, 10, 100]`, then the result of the interpolator for *t* = 0.5 is the array `[0.5, 5.5, 100]`.
+例如，如果  *a* 为 `[0, 1]` 并且 *b* 为 `[1, 10, 100]`。则 *t* = 0.5 时结果为 `[0.5, 5.5, 100]`.
 
-Note: **no defensive copy** of the template array is created; modifications of the returned array may adversely affect subsequent evaluation of the interpolator. No copy is made for performance reasons; interpolators are often part of the inner loop of [animated transitions](https://github.com/d3/d3-transition).
+注意: 返回的数组在创建时 **no defensive copy(没有防御式拷贝)**; 插值器在每次计算时都返回同一个实例(例如: `interpolator(0.1) === interpolator(0.5)` is `true`)。没有拷贝是处于性能方面的考虑; 插值器通常用是 [animated transitions](https://github.com/d3/d3-transition) 内循环的一部分。
 
 <a name="interpolateObject" href="#interpolateObject">#</a> d3.<b>interpolateObject</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/object.js "Source")
 
-Returns an interpolator between the two objects *a* and *b*. Internally, an object template is created that has the same properties as *b*. For each property in *b*, if there exists a corresponding property in *a*, a generic interpolator is created for the two elements using [interpolate](#interpolate). If there is no such property, the static value from *b* is used in the template. Then, for the given parameter *t*, the template's embedded interpolators are evaluated and the updated object template is then returned.
+返回一个在两个对象 *a* 和 *b* 之间插值的插值器。在内部，会创建一个与对象 *b* 有相同属性的临时对象。对于对象 *b* 的每一个属性，如果在 *a* 中也存在则会在这两个元素之间使用一个通用的 [interpolate](#interpolate)。如果 *a* 中没有对应的属性, 则这个值会被当为静态值放到临时对象模板中。然后根据指定的参数 *t*, 计算出临时对象模板中每一个属性的值最后返回。
 
-For example, if *a* is the object `{x: 0, y: 1}` and *b* is the object `{x: 1, y: 10, z: 100}`, the result of the interpolator for *t* = 0.5 is the object `{x: 0.5, y: 5.5, z: 100}`.
+例如, 如果 *a* 为 `{x: 0, y: 1}` 并且 *b* 为 `{x: 1, y: 10, z: 100}`, 则 *t* = 0.5 时返回的结果为 `{x: 0.5, y: 5.5, z: 100}`.
 
-Object interpolation is particularly useful for *dataspace interpolation*, where data is interpolated rather than attribute values. For example, you can interpolate an object which describes an arc in a pie chart, and then use d3.svg.arc to compute the new SVG path data.
+对象插值特别适用于 *dataspace interpolation(数据空间插值)*, 也就是对数据插值而不是对属性进行插值。例如你可以对一个描述 `arc` 或者 `pie` 的对象进行插值，然后使用 `d3.arc` 来计算新的路径数据。
 
-Note: **no defensive copy** of the template object is created; modifications of the returned object may adversely affect subsequent evaluation of the interpolator. No copy is made for performance reasons; interpolators are often part of the inner loop of [animated transitions](https://github.com/d3/d3-transition).
+注意: 返回的对象在创建时 **no defensive copy(没有防御式拷贝)**; 插值器在每次计算时都返回同一个实例(例如: `interpolator(0.1) === interpolator(0.5)` is `true`)。没有拷贝是处于性能方面的考虑; 插值器通常用是 [animated transitions](https://github.com/d3/d3-transition) 内循环的一部分。
 
 <a name="interpolateTransformCss" href="#interpolateTransformCss">#</a> d3.<b>interpolateTransformCss</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/transform/index.js#L62 "Source")
 
