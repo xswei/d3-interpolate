@@ -80,9 +80,9 @@ function interpolator(t) {
 
 <a name="interpolateString" href="#interpolateString">#</a> d3.<b>interpolateString</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/string.js "Source")
 
-Returns an interpolator between the two strings *a* and *b*. The string interpolator finds numbers embedded in *a* and *b*, where each number is of the form understood by JavaScript. A few examples of numbers that will be detected within a string: `-1`, `42`, `3.14159`, and `6.0221413e+23`.
+返回一个在两个字符串 *a* 和 *b* 之间插值的插值器。字符串插值器会分别在字符串 *a* 和 *b* 之间找出内嵌的数字，其中每个数字都是可以被 `JavaScript` 识别的。在字符串中可以被检测到的数字示例: `-1`, `42`, `3.14159` 和 `6.0221413e+23`.
 
-For each number embedded in *b*, the interpolator will attempt to find a corresponding number in *a*. If a corresponding number is found, a numeric interpolator is created using [interpolateNumber](#interpolateNumber). The remaining parts of the string *b* are used as a template: the static parts of the string *b* remain constant for the interpolation, with the interpolated numeric values embedded in the template.
+对于每个嵌入到 *b* 中的数字，插值器都会尝试在 *a* 中找出相对应的数字。如果能找到则对两者使用 [interpolateNumber](#interpolateNumber)。字符串 *b* 的其他部分被当做模板: 字符串 *b* 的静态部分会保持不变，而数字部分会进行插值计算。
 
 例如，如果 *a* 为 `"300 12px sans-serif"`, 并且 *b* 为 `"500 36px Comic-Sans"`, 则会找出两个内嵌的数值. 剩余的静态部分 (对于字符串 *b*) 是两个数值之间的空格 (`" "`), 以及后缀 (`"px Comic-Sans"`). 在 *t* = 0.5 时返回的结果为 `"400 24px Comic-Sans"`.
 
@@ -112,25 +112,25 @@ For each number embedded in *b*, the interpolator will attempt to find a corresp
 
 <a name="interpolateTransformCss" href="#interpolateTransformCss">#</a> d3.<b>interpolateTransformCss</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/transform/index.js#L62 "Source")
 
-Returns an interpolator between the two 2D CSS transforms represented by *a* and *b*. Each transform is decomposed to a standard representation of translate, rotate, *x*-skew and scale; these component transformations are then interpolated. This behavior is standardized by CSS: see [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition).
+返回一个在 2D `CSS` 变换 *a* 和 *b* 之间插值的插值器. 每个变换都会被分解为 `translate`, `rotate` *x*-skew 以及 `scale`; 这些组成变换的部分会被分别插值。这个行为是一个标准的 `CSS` 动画: 参考 [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition).
 
 <a name="interpolateTransformSvg" href="#interpolateTransformSvg">#</a> d3.<b>interpolateTransformSvg</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/transform/index.js#L63 "Source")
 
-Returns an interpolator between the two 2D SVG transforms represented by *a* and *b*. Each transform is decomposed to a standard representation of translate, rotate, *x*-skew and scale; these component transformations are then interpolated. This behavior is standardized by CSS: see [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition).
+返回一个在 2D `SVG` 变换 *a* 和 *b* 之间插值的插值器. 每个变换都会被分解为 `translate`, `rotate` *x*-skew 以及 `scale`; 这些组成变换的部分会被分别插值。这个行为是一个标准的 `CSS` 动画: 参考 [matrix decomposition for animation](http://www.w3.org/TR/css3-2d-transforms/#matrix-decomposition)
 
 <a name="interpolateZoom" href="#interpolateZoom">#</a> d3.<b>interpolateZoom</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/zoom.js "Source")
 
-Returns an interpolator between the two views *a* and *b* of a two-dimensional plane, based on [“Smooth and efficient zooming and panning”](http://www.win.tue.nl/~vanwijk/zoompan.pdf) by Jarke J. van Wijk and Wim A.A. Nuij. Each view is defined as an array of three numbers: *cx*, *cy* and *width*. The first two coordinates *cx*, *cy* represent the center of the viewport; the last coordinate *width* represents the size of the viewport.
+返回一个在二维平面两个视图 *a* 和 *b* 之间的插值器，基于 `Jarke J. van Wijk` 和 `Wim A.A. Nuij` 的 [“Smooth and efficient zooming and panning”](http://www.win.tue.nl/~vanwijk/zoompan.pdf). 每个视图被定义为三个元素的数组: *cx*, *cy* and *width*。其中 *cx*, *cy* 表示视图的中心，*width* 表示视图的大小。
 
-The returned interpolator exposes a *duration* property which encodes the recommended transition duration in milliseconds. This duration is based on the path length of the curved trajectory through *x,y* space. If you want to a slower or faster transition, multiply this by an arbitrary scale factor (<i>V</i> as described in the original paper).
+返回的插值器暴露一个 *duration* 属性用来表示建议的过渡时间(毫秒)。过渡时间基于 `x`, `y` 空间的曲线轨迹的路径长度得到的。如果你想更快或更慢的过渡，可以将它乘以一个比例系数。
 
 ### Sampling
 
 <a name="quantize" href="#quantize">#</a> d3.<b>quantize</b>(<i>interpolator</i>, <i>n</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/quantize.js "Source")
 
-Returns *n* uniformly-spaced samples from the specified *interpolator*, where *n* is an integer greater than one. The first sample is always at *t* = 0, and the last sample is always at *t* = 1. This can be useful in generating a fixed number of samples from a given interpolator, such as to derive the range of a [quantize scale](https://github.com/d3/d3-scale#quantize-scales) from a [continuous interpolator](https://github.com/d3/d3-scale#interpolateWarm).
+根据指定的 *interpolator* 返回 *n* 个等间隔的均匀采样, 其中 *n* 是一个大于 `1` 的整数。第一个采样点总是取 *t* = 0 时的值而最后一个值总是取 *t* = 1 处的值。这个方法可以从给定的插值器中取固定数量的等间隔的值, 比如从 [continuous interpolator](https://github.com/d3/d3-scale#interpolateWarm) 中推导 [quantize scale](https://github.com/d3/d3-scale#quantize-scales)。
 
-Caution: this method will not work with interpolators that do not return defensive copies of their output, such as [d3.interpolateArray](#interpolateArray), [d3.interpolateDate](#interpolateDate) and [d3.interpolateObject](#interpolateObject). For those interpolators, you must wrap the interpolator and create a copy for each returned value.
+警告: 这种方法不适用于不返回副本的插值器, 比如 [d3.interpolateArray](#interpolateArray), [d3.interpolateDate](#interpolateDate) 和 [d3.interpolateObject](#interpolateObject)。对于这些插值器，你必须对其包装，每次插值时返回一个副本。
 
 ### Color Spaces
 
@@ -138,49 +138,51 @@ Caution: this method will not work with interpolators that do not return defensi
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/rgb.png" width="100%" height="40" alt="rgb">
 
-Or, with a corrected [gamma](#interpolate_gamma) of 2.2:
+或者, 使用 `2.2` 修正的 [gamma](#interpolate_gamma):
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/rgbGamma.png" width="100%" height="40" alt="rgbGamma">
+
+返回一个在两个颜色 *a* 和 *b* 之间插值的 `RGB` 颜色空间插值器, 其中包含可配置参数 [gamma](#interpolate_gamma)。如果没有指定 `gamma` 则默认为 `1.0`。颜色 *a* 和 *b* 不需要非要是 `RGB` 空间；可以使用 [d3.rgb](https://github.com/xswei/d3-color#rgb) 转为 `RGB` 颜色即可。插值器返回的结果使用 `RGB` 字符串表示.
 
 Returns an RGB color space interpolator between the two colors *a* and *b* with a configurable [gamma](#interpolate_gamma). If the gamma is not specified, it defaults to 1.0. The colors *a* and *b* need not be in RGB; they will be converted to RGB using [d3.rgb](https://github.com/d3/d3-color#rgb). The return value of the interpolator is an RGB string.
 
 <a href="#interpolateRgbBasis" name="interpolateRgbBasis">#</a> d3.<b>interpolateRgbBasis</b>(<i>colors</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/rgb.js#L54 "Source")
 
-Returns a uniform nonrational B-spline interpolator through the specified array of *colors*, which are converted to [RGB color space](https://github.com/d3/d3-color#rgb). Implicit control points are generated such that the interpolator returns *colors*[0] at *t* = 0 and *colors*[*colors*.length - 1] at *t* = 1. Opacity interpolation is not currently supported. See also [d3.interpolateBasis](#interpolateBasis), and see [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) for examples.
+根据指定的颜色数组返回一个 `uniform nonrational` B-样条插值器, 这些颜色都会被转为 [RGB color space](https://github.com/d3/d3-color#rgb)。隐式控制点的生成会使得 *t* = 0 时返回 *colors*[0] 并且在 *t* = 1 时返回 [*colors*.length - 1]。目前支持不透明度的插值.参考 [d3.interpolateBasis](#interpolateBasis) 和 [d3-scale-chromatic](https://github.com/xswei/d3-scale-chromatic) 获取更多例子。
 
 <a href="#interpolateRgbBasisClosed" name="interpolateRgbBasisClosed">#</a> d3.<b>interpolateRgbBasisClosed</b>(<i>colors</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/rgb.js#L55 "Source")
 
-Returns a uniform nonrational B-spline interpolator through the specified array of *colors*, which are converted to [RGB color space](https://github.com/d3/d3-color#rgb). The control points are implicitly repeated such that the resulting spline has cyclical C² continuity when repeated around *t* in [0,1]; this is useful, for example, to create cyclical color scales. Opacity interpolation is not currently supported. See also [d3.interpolateBasisClosed](#interpolateBasisClosed), and see [d3-scale-chromatic](https://github.com/d3/d3-scale-chromatic) for examples.
+根据指定的颜色数组返回一个 `uniform nonrational` B-样条插值器, 这些颜色都会被转为 [RGB color space](https://github.com/d3/d3-color#rgb)。隐式的控制点是重复的，这样在 *t* 处于 [0, 1] 时返回的结果是循环重复的。创建一个循环颜色比例尺时是有用的。目前支持不透明度的插值.参考 [d3.interpolateBasis](#interpolateBasis) 和 [d3-scale-chromatic](https://github.com/xswei/d3-scale-chromatic) 获取更多例子。
 
 <a name="interpolateHsl" href="#interpolateHsl">#</a> d3.<b>interpolateHsl</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/hsl.js "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/hsl.png" width="100%" height="40" alt="hsl">
 
-Returns an HSL color space interpolator between the two colors *a* and *b*. The colors *a* and *b* need not be in HSL; they will be converted to HSL using [d3.hsl](https://github.com/d3/d3-color#hsl). If either color’s hue or saturation is NaN, the opposing color’s channel value is used. The shortest path between hues is used. The return value of the interpolator is an RGB string.
+在两个颜色 *a* 和 *b* 之间创建一个 `HSL` 颜色空间的插值器。*a* 和 *b* 不一定使用 `HSL` 表示，它们将会适用 [d3.hsl](https://github.com/xswei/d3-color#hsl) 转为 `HSL` 表示. 如果其中一个颜色的 `hue` 或 `saturation` 为 `NaN` 则使用相反的颜色通道值。最短路径的 `hues` 将会被使用。返回的值使用 `RGB` 字符串表示.
 
 <a name="interpolateHslLong" href="#interpolateHslLong">#</a> d3.<b>interpolateHslLong</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/hsl.js#L21 "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/hslLong.png" width="100%" height="40" alt="hslLong">
 
-Like [interpolateHsl](#interpolateHsl), but does not use the shortest path between hues.
+与 [interpolateHsl](#interpolateHsl) 类似, 但是不使用 `hues` 之间的最短路径.
 
 <a name="interpolateLab" href="#interpolateLab">#</a> d3.<b>interpolateLab</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/lab.js "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/lab.png" width="100%" height="40" alt="lab">
 
-Returns a Lab color space interpolator between the two colors *a* and *b*. The colors *a* and *b* need not be in Lab; they will be converted to Lab using [d3.lab](https://github.com/d3/d3-color#lab). The return value of the interpolator is an RGB string.
+在两个颜色 *a* 和 *b* 之间创建一个 `Lab` 颜色空间的插值器。*a* 和 *b* 不一定使用 `Lab` 表示，它们将会适用 [d3.lab](https://github.com/xswei/d3-color#lab) 转为 `Lab` 表示。返回的值使用 `RGB` 字符串表示.
 
 <a name="interpolateHcl" href="#interpolateHcl">#</a> d3.<b>interpolateHcl</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/hcl.js "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/hcl.png" width="100%" height="40" alt="hcl">
 
-Returns an HCL color space interpolator between the two colors *a* and *b*. The colors *a* and *b* need not be in HCL; they will be converted to HCL using [d3.hcl](https://github.com/d3/d3-color#hcl). If either color’s hue or chroma is NaN, the opposing color’s channel value is used. The shortest path between hues is used. The return value of the interpolator is an RGB string.
+在两个颜色 *a* 和 *b* 之间创建一个 `HCL` 颜色空间的插值器。*a* 和 *b* 不一定使用 `HCL` 表示，它们将会适用 [d3.hcl](https://github.com/xswei/d3-color#hcl) 转为 `HCL` 表示. 如果其中一个颜色的 `hue` 或 `chroma` 为 `NaN` 则使用相反的颜色通道值。最短路径的 `hues` 将会被使用。返回的值使用 `RGB` 字符串表示.
 
 <a name="interpolateHclLong" href="#interpolateHclLong">#</a> d3.<b>interpolateHclLong</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/hcl.js#L21 "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/hclLong.png" width="100%" height="40" alt="hclLong">
 
-Like [interpolateHcl](#interpolateHcl), but does not use the shortest path between hues.
+与 [interpolateHcl](#interpolateHcl) 类似, 但是不使用 `hues` 之间的最短路径.
 
 <a name="interpolateCubehelix" href="#interpolateCubehelix">#</a> d3.<b>interpolateCubehelix</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/cubehelix.js "Source")
 
