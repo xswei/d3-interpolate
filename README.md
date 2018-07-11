@@ -216,21 +216,21 @@ var interpolator = d3.interpolateRgb.gamma(2.2)("purple", "orange");
 
 ### Splines
 
-Whereas standard interpolators blend from a starting value *a* at *t* = 0 to an ending value *b* at *t* = 1, spline interpolators smoothly blend multiple input values for *t* in [0,1] using piecewise polynomial functions. Only cubic uniform nonrational [B-splines](https://en.wikipedia.org/wiki/B-spline) are currently supported, also known as basis splines.
+标准的插值器会在起始值 *t* = 0 时的 *a* 和 *t* = 1 时的 *b* 之间计算得出一个适当的值。而样条曲线插值器可以使用分段多项式函数为多个介于 [0,1] 之间的输入值进行光滑插值。目前只支持三次无理 [B-splines](https://en.wikipedia.org/wiki/B-spline)，也就是基本样条曲线。
 
 <a href="#interpolateBasis" name="interpolateBasis">#</a> d3.<b>interpolateBasis</b>(<i>values</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/basis.js "Source")
 
-Returns a uniform nonrational B-spline interpolator through the specified array of *values*, which must be numbers. Implicit control points are generated such that the interpolator returns *values*[0] at *t* = 0 and *values*[*values*.length - 1] at *t* = 1. See also [d3.curveBasis](https://github.com/d3/d3-shape#curveBasis).
+根据给定的一组 *values* 返回一个 `B-splibe` 插值器, 输入值必须为数值类型，隐式控制点的生成会使得在 *t* = 0 时返回 *values*[0] 并且 *t* = 1 时返回 *values*[*values*.length - 1], 参考 [d3.curveBasis](https://github.com/d3/d3-shape#curveBasis)。
 
 <a href="#interpolateBasisClosed" name="interpolateBasisClosed">#</a> d3.<b>interpolateBasisClosed</b>(<i>values</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/basisClosed.js "Source")
 
-Returns a uniform nonrational B-spline interpolator through the specified array of *values*, which must be numbers. The control points are implicitly repeated such that the resulting one-dimensional spline has cyclical C² continuity when repeated around *t* in [0,1]. See also [d3.curveBasisClosed](https://github.com/d3/d3-shape#curveBasisClosed).
+根据给定的一组 *values* 返回一个 `B-splibe` 插值器, 输入值必须为数值类型, 控制点是隐式重复的，这样得到的一维样条在 [0, 1] 中重复出现时会保持周期连贯性, 参考 [d3.curveBasisClosed](https://github.com/d3/d3-shape#curveBasisClosed)。
 
 ### Piecewise
 
 <a name="piecewise" href="#piecewise">#</a> d3.<b>piecewise</b>(<i>interpolate</i>, <i>values</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/piecewise.js "Source")
 
-Returns a piecewise interpolator, composing interpolators for each adjacent pair of *values*. The returned interpolator maps *t* in [0, 1 / (*n* - 1)] to *interpolate*(*values*[0], *values*[1]), *t* in [1 / (*n* - 1), 2 / (*n* - 1)] to *interpolate*(*values*[1], *values*[2]), and so on, where *n* = *values*.length. In effect, this is a lightweight [linear scale](https://github.com/d3/d3-scale/blob/master/README.md#linear-scales). For example, to blend through red, green and blue:
+根据指定的 *values* 数组返回一个分段的插值器, 其中数组中每两个相邻的值之间会创建一个单独的插值器。返回的插值器在 *t* 处于[0, 1 / (*n* - 1)] 时通过 *interpolate*(*values*[0], *values*[1]) 事件, 在 *t* 处于 [1 / (*n* - 1), 2 / (*n* - 1)] 时使用 *interpolate*(*values*[1], *values*[2]) 计算，其中 *n* 等于 *values*.length，以此类推。从结果来看，这是一个轻量级的 [linear scale](https://github.com/d3/d3-scale/blob/master/README.md#linear-scales)。例如创建一个在 `red`, `green` 和 `blue` 之间创建一个插值器:
 
 ```js
 var interpolate = d3.piecewise(d3.interpolateRgb.gamma(2.2), ["red", "green", "blue"]);
