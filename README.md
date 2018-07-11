@@ -188,31 +188,31 @@ Returns an RGB color space interpolator between the two colors *a* and *b* with 
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/cubehelix.png" width="100%" height="40" alt="cubehelix">
 
-Or, with a [gamma](#interpolate_gamma) of 3.0 to emphasize high-intensity values:
+或者使用 [gamma](#interpolate_gamma) = 3.0 来强调高亮度的值:
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/cubehelixGamma.png" width="100%" height="40" alt="cubehelixGamma">
 
-Returns a Cubehelix color space interpolator between the two colors *a* and *b* using a configurable [gamma](#interpolate_gamma). If the gamma is not specified, it defaults to 1.0. The colors *a* and *b* need not be in Cubehelix; they will be converted to Cubehelix using [d3.cubehelix](https://github.com/d3/d3-color#cubehelix). If either color’s hue or saturation is NaN, the opposing color’s channel value is used. The shortest path between hues is used. The return value of the interpolator is an RGB string.
+返回一个在两个颜色 *a* 和 *b* 之间可配置 [gamma](#interpolate_gamma) 的 `Cubehelix` 颜色空间插值器。如果没有指定 `gamma` 则默认为 1.0. 颜色值 *a* 和*b* 不一定必须为 `Cubehelix`；在内部会使用 [d3.cubehelix](https://github.com/xswei/d3-color#cubehelix) 将其转换为 `Cubehelix` 表示。如果其中一个颜色值得 `hue` 或 `saturation` 为 `NaN`, 则相反的颜色通道值会使用。会在两个颜色值之间最短的 `hue` 路径之间插值，返回值是一个 `RGB` 字符串。
 
 <a name="interpolateCubehelixLong" href="#interpolateCubehelixLong">#</a> d3.<b>interpolateCubehelixLong</b>(<i>a</i>, <i>b</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/cubehelix.js#L29 "Source")
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/cubehelixLong.png" width="100%" height="40" alt="cubehelixLong">
 
-Or, with a [gamma](#interpolate_gamma) of 3.0 to emphasize high-intensity values:
+或者使用 [gamma](#interpolate_gamma) = 3.0 来强调高亮度的值:
 
 <img src="https://raw.githubusercontent.com/d3/d3-interpolate/master/img/cubehelixGammaLong.png" width="100%" height="40" alt="cubehelixGammaLong">
 
-Like [interpolateCubehelix](#interpolateCubehelix), but does not use the shortest path between hues.
+与 [interpolateCubehelix](#interpolateCubehelix) 类似, 但是不是使用两个 `hues` 值之间的最短路径.
 
 <a name="interpolate_gamma" href="#interpolate_gamma">#</a> <i>interpolate</i>.<b>gamma</b>(<i>gamma</i>)
 
-Given that *interpolate* is one of [interpolateRgb](#interpolateRgb), [interpolateCubehelix](#interpolateCubehelix) or [interpolateCubehelixLong](#interpolateCubehelixLong), returns a new interpolator factory of the same type using the specified *gamma*. For example, to interpolate from purple to orange with a gamma of 2.2 in RGB space:
+给定的 *interpolate* 为 [interpolateRgb](#interpolateRgb), [interpolateCubehelix](#interpolateCubehelix) 或 [interpolateCubehelixLong](#interpolateCubehelixLong) 中的一种, 使用指定的 *gamma* 值返回一个新的同类型的插值器. 例如使用 *gamma* 为 2.2 且在 `purple` 和 `orange` 之间进行 `RGB` 颜色插值的插值器:
 
 ```js
 var interpolator = d3.interpolateRgb.gamma(2.2)("purple", "orange");
 ```
 
-See Eric Brasseur’s article, [Gamma error in picture scaling](https://web.archive.org/web/20160112115812/http://www.4p8.com/eric.brasseur/gamma.html), for more on gamma correction.
+参考 `Eric Brasseur` 的文章 [Gamma error in picture scaling](https://web.archive.org/web/20160112115812/http://www.4p8.com/eric.brasseur/gamma.html) 获取更多关于 *gamma* 修正的资料.
 
 ### Splines
 
