@@ -144,8 +144,6 @@ function interpolator(t) {
 
 返回一个在两个颜色 *a* 和 *b* 之间插值的 `RGB` 颜色空间插值器, 其中包含可配置参数 [gamma](#interpolate_gamma)。如果没有指定 `gamma` 则默认为 `1.0`。颜色 *a* 和 *b* 不需要非要是 `RGB` 空间；可以使用 [d3.rgb](https://github.com/xswei/d3-color#rgb) 转为 `RGB` 颜色即可。插值器返回的结果使用 `RGB` 字符串表示.
 
-Returns an RGB color space interpolator between the two colors *a* and *b* with a configurable [gamma](#interpolate_gamma). If the gamma is not specified, it defaults to 1.0. The colors *a* and *b* need not be in RGB; they will be converted to RGB using [d3.rgb](https://github.com/d3/d3-color#rgb). The return value of the interpolator is an RGB string.
-
 <a href="#interpolateRgbBasis" name="interpolateRgbBasis">#</a> d3.<b>interpolateRgbBasis</b>(<i>colors</i>) [<>](https://github.com/d3/d3-interpolate/blob/master/src/rgb.js#L54 "Source")
 
 根据指定的颜色数组返回一个 `uniform nonrational` B-样条插值器, 这些颜色都会被转为 [RGB color space](https://github.com/d3/d3-color#rgb)。隐式控制点的生成会使得 *t* = 0 时返回 *colors*[0] 并且在 *t* = 1 时返回 [*colors*.length - 1]。目前支持不透明度的插值.参考 [d3.interpolateBasis](#interpolateBasis) 和 [d3-scale-chromatic](https://github.com/xswei/d3-scale-chromatic) 获取更多例子。
